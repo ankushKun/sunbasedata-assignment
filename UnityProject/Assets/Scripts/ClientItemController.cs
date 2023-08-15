@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +15,10 @@ public class ClientItemController : MonoBehaviour
     public GameObject PopupItem;
     public Button btn;
     Response resCopy;
-    public GameObject popup;
 
     public void setDetails(string label, bool isManager, int id, int index, Response r)
     {
         PopupItem = GameObject.Find("Popup");
-        Debug.Log(PopupItem);
         this.label = label;
         this.isManager = isManager;
         this.id = id;
@@ -37,7 +36,6 @@ public class ClientItemController : MonoBehaviour
 
     public void showPopup()
     {
-        PopupItem.SetActive(true);
         PopupHandler p = PopupItem.GetComponent<PopupHandler>();
         Debug.Log(p);
         Debug.Log(resCopy.data.Count);
@@ -50,5 +48,8 @@ public class ClientItemController : MonoBehaviour
         {
             p.setDetails("Client", "Details", "Unavailable");
         }
+        PopupItem.transform.DOLocalMoveY(0, 0.5f);
+        GameObject.Find("Scroll View").transform.DOLocalMoveX(-2000, 0.5f);
+        GameObject.Find("FilteringDropdown").transform.DOLocalMoveX(1800, 0.5f);
     }
 }
